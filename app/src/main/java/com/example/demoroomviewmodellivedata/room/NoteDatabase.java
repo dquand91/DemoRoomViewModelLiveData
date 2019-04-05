@@ -44,6 +44,8 @@ public abstract class NoteDatabase extends RoomDatabase {
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
             // Khi database được tạo => sẽ tiến hành 1 cái asynctask để insert data vào như bên dưới
+            // Ở đây chỉ tạo data giả thôi
+            // Thực tế sẽ dung retrofit để insert data vào
             new PopulateDbAsyncTask(instance).execute();
         }
 

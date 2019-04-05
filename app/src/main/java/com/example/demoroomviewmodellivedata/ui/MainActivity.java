@@ -1,10 +1,12 @@
-package com.example.demoroomviewmodellivedata;
+package com.example.demoroomviewmodellivedata.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.demoroomviewmodellivedata.R;
 import com.example.demoroomviewmodellivedata.room.Note;
+import com.example.demoroomviewmodellivedata.ui.adapter.NoteAdapter;
 import com.example.demoroomviewmodellivedata.utils.AppLogger;
 import com.example.demoroomviewmodellivedata.viewmodel.NoteViewModel;
 
@@ -13,16 +15,27 @@ import java.util.List;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     private NoteViewModel noteViewModel;
+    private RecyclerView recyclerView;
+    private NoteAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+
+        adapter = new NoteAdapter();
+        recyclerView.setAdapter(adapter);
 
         // khởi tạo viewModel để thao tác với data (get, thêm, xóa, sửa)
         noteViewModel = ViewModelProviders.of(this).get(NoteViewModel.class);
@@ -36,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 //update RecyclerView
                 Toast.makeText(MainActivity.this, "onChanged", Toast.LENGTH_SHORT).show();
                 AppLogger.error(TAG, notes);
+                adapter.setNoteData(notes);
             }
 
 
