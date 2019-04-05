@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 //update RecyclerView
                 Toast.makeText(MainActivity.this, "onChanged", Toast.LENGTH_SHORT).show();
                 AppLogger.error(TAG, notes);
-                adapter.setNoteData(notes);
+                adapter.submitList(notes);
             }
 
 
